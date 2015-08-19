@@ -37,10 +37,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
     views: {
       'menuContent': {
         templateUrl: 'templates/trivia.html',
-        controller: 'TriviaController'
       }
     }
   })
+
+      .state('app.trivia.play', {
+        url: '/play',
+        views: {
+          'menuContent@app': {
+            templateUrl: 'templates/trivia.play.html',
+            controller: 'TriviaController'
+          }
+        }
+      })
 
   .state('app.profile', {
     url: '/profile',

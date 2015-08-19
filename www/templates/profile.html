@@ -1,6 +1,16 @@
 <ion-view view-title="Search">
   <ion-content>
-    <h2>{{user.username}}</h2>
-    <span>Global Level: {{user.userLevel}}</span>
+    <div class="container">
+      <h2>{{user.username}}</h2>
+      <span>Global Level: {{user.userLevel}}</span>
+      <h4>Most Recent Game</h4>
+      <div>answered: {{user.mostRecentGame.questionsAnswered}}</div>
+      <div>correct: {{user.mostRecentGame.questionsAnsweredCorrect}}</div>
+      <div>XP earned: {{user.mostRecentGame.xpEarned}}</div>
+      <h4>Overall</h4>
+      <div>games played: {{user.gamesPlayed}}</div>
+      <div>streak: {{user.bestCorrectStreak}}</div>
+      <div>XP: {{user.totalXp}}</div>
+    </div>
   </ion-content>
 </ion-view>
