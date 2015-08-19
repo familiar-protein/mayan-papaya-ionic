@@ -144,11 +144,12 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
       }
     }, 1000);
   };
+  $scope.setCountdown();
+
   //cancel timer if user navigates away from questions
   $scope.$on('$destroy', function() {
     $interval.cancel($scope.gameTimer);
   });
-  $scope.setCountdown();
 
 }]);
 
