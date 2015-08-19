@@ -64,7 +64,7 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
     $scope.navLoc = 0;
     $scope.setCountdown();
     $scope.questionCount++;
-    // if ($scope.questionCount === 10) {
+    if ($scope.questionCount === 10) {
     //   $scope.updateUser({
     //     username: $scope.username,
     //     score: $scope.score,
@@ -73,8 +73,8 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
     //     answered: $scope.answered
 
     //   });
-    //   $location.path("/trivia/endgame"); // render endgame view
-    // }
+      $location.path("app/trivia"); // render endgame view
+    }
   };
 
   //for getting trivia questions from the jService API
