@@ -58,11 +58,11 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
 
   //for question navigation
   // $scope.navLoc = Math.floor(Math.random() * 150);
-  $scope.navLoc = 0;
+  $scope.navLoc = Math.floor(Math.random() * 150);
   $scope.questionCount = 0;
   $scope.nextLoc = function() {
     //TODO make more dynamic
-    $scope.navLoc = 0;
+    $scope.navLoc = Math.floor(Math.random() * 150);
     $scope.setCountdown();
     $scope.questionCount++;
     if ($scope.questionCount === 10) {
@@ -74,6 +74,7 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
     //     answered: $scope.answered
 
     //   });
+      $scope.questionCount = 0;
       $location.path("app/trivia"); // render endgame view
     }
   };
@@ -93,7 +94,9 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
     var id = question.id;
     var value = question.value;
     var userAns = question.userAnswer;
-    if(answer === question.correct) {
+    console.log(answer);
+    console.log(question.answer)
+    if(answer === question.answer) {
       $scope.correct++;
       $scope.currentStreak++;
       $scope.score += Math.floor(Math.sqrt(+question.level) * 50 + $scope.counter);
