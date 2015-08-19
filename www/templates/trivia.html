@@ -1,0 +1,23 @@
+<ion-view view-title="Trivia">
+  <ion-content>
+    <div ng-repeat="(key, q) in questions" ng-show="$index === navLoc">
+      <div class="row" >
+        <div class="col">Time Left: {{counter}}</div>
+        <div class="col">Difficulty: {{q.level}}</div>
+        <div class="col">Score: {{score}}</div>
+      </div>
+
+      <div class="question-container">
+        <div>
+          {{q.question}}
+        </div>
+
+        <div>
+          <button class="button button-energized button-block" ng-repeat="answer in q.content" ng-click="checkAnswer(q, $index)">{{answer}}</button>
+        </div>
+      </div>
+
+    </div>
+
+  </ion-content>
+</ion-view>
