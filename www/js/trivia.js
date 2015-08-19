@@ -1,18 +1,19 @@
 var app = angular.module('Trivia', []);
+var url = 'http://localhost:3000';
 
 //factory to get and hold question data
 //also has methods for cleaning and augmenting question data
 app.factory('Questions', ['$http', function($http) {
   var obj = {};
 
-  // obj.getQuestions = function() { // retrieves questions from backend
-  //   return $http.get('/api/trivia').success(function(data) {
-  //     // using Angular $http service to query our questions route
-  //     // success cb executes when request returns
-  //     // route returns a list of questions
-  //     obj.questions = data;
-  //   });
-  // };
+  obj.getQuestions = function() { // retrieves questions from backend
+    return $http.get(url + '/api/trivia').success(function(data) {
+      // using Angular $http service to query our questions route
+      // success cb executes when request returns
+      // route returns a list of questions
+      obj.questions = data;
+    });
+  };
 
   // obj.updateUser = function(user){
   //   return $http.put('/api/users', {
@@ -84,7 +85,7 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
         $scope.questions = data;
       });
   };
-  //$scope.getQuestions();
+  $scope.getQuestions();
 
   //for handling user answers to trivia
  $scope.checkAnswer = function(question, answer) {
