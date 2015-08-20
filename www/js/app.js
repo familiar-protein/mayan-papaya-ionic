@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
+angular.module('starter', ['ionic', 'Trivia', 'Profile', 'User'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -24,7 +24,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
 
 .run(function ($rootScope, $state, UserFactory) {
   $rootScope.$on('$stateChangeStart', function(event, next) {
-    if (!next.data.publicallyAccessible && UserFactory.isAuth()) {
+    if (!next.data.publicallyAccessible && !UserFactory.isAuth()) {
       event.preventDefault();
       $state.go('app.auth');
     }
@@ -38,7 +38,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl',
     data: { publicallyAccessible: true }
   })
 
@@ -85,37 +84,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
     data: { publicallyAccessible: false }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      },
-      data: { publicallyAccessible: false }
-    })
-
-  .state('app.playlists', {
-    url: '/playlists',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlists.html',
-        controller: 'PlaylistsCtrl'
-      }
-    },
-    data: { publicallyAccessible: false }
-  })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    },
-    data: { publicallyAccessible: false }
-  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 });
