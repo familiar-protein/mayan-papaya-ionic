@@ -38,6 +38,7 @@ angular.module('starter', ['ionic', 'Trivia', 'Profile', 'User'])
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
+    controller: 'UserController',
     data: { publicallyAccessible: true }
   })
 
