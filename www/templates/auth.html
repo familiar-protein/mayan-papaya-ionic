@@ -1,4 +1,6 @@
-<ion-view ng-init="login = true" view-title="{{login ? 'Login' : 'Sign Up'}}">
+<ion-view ng-init="login = true" cache-view="false">
+  <ion-nav-title> {{login ? 'Login' : 'Sign Up'}} </ion-nav-title>
+
   <ion-content>
 
     <form ng-show="login" ng-submit="signin()">
@@ -37,7 +39,7 @@
       </div>
     </form>
 
-    <button class="button button-clear button-positive" ng-click="login = !login">{{login ? 'Sign Up' : 'Log In'}}</button>
+    <button class="button button-clear button-positive" ng-click="switchView()">{{login ? 'Sign Up' : 'Log In'}}</button>
 
   </ion-content>
 </ion-view>

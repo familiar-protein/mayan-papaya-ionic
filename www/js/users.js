@@ -41,10 +41,17 @@ app.factory('UserFactory', ['$http', '$location', '$window', function($http, $lo
   return obj;
 }]);
 
-app.controller('UserController', ['$scope', '$window', '$location', 'UserFactory', function($scope, $window, $location, UserFactory) {
+app.controller('UserController', ['$scope', '$window', '$location', 'UserFactory', '$ionicNavBarDelegate', function($scope, $window, $location, UserFactory, $ionicNavBarDelegate) {
   $scope.test = 'test';
   $scope.user = {};
   $scope.fail = false;
+
+  $scope.switchView = function() {
+    $scope.login = !$scope.login;
+    var title = $scope.login ? 'Login' : 'Sign Up';
+    $ionicNavBarDelegate.title(title);
+  }
+
   $scope.signin = function () {
     UserFactory.signin($scope.user)
       .then(function (token) {
