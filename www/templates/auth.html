@@ -1,0 +1,43 @@
+<ion-view ng-init="login = true" view-title="{{login ? 'Login' : 'Sign Up'}}">
+  <ion-content>
+
+    <form ng-show="login" ng-submit="signin()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="user.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="user.password">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Log in</button>
+        </label>
+      </div>
+    </form>  
+
+    <form ng-show="!login" ng-submit="signup()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="user.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="user.password">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Confirm Password</span>
+          <input type="password" ng-model="user.confirmPassword">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Sign up</button>
+        </label>
+      </div>
+    </form>
+
+    <button class="button button-clear button-positive" ng-click="login = !login">{{login ? 'Sign Up' : 'Log In'}}</button>
+
+  </ion-content>
+</ion-view>
