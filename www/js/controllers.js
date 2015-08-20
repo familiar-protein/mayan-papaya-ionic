@@ -11,6 +11,7 @@ angular.module('starter.controllers', ['User'])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.signupData = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -39,6 +40,19 @@ angular.module('starter.controllers', ['User'])
       .then(function(token) {
          $window.localStorage.setItem('com.TriviaWithFriends', token);
          $window.localStorage.setItem('com.TriviaWithFriends.username', $scope.loginData.username);
+         $scope.closeLogin();
+      })
+  };
+
+  $scope.doSignup = function() {
+    console.log('Doing login', $scope.signupData);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    UserFactory.signup($scope.signupData)
+      .then(function(token) {
+         $window.localStorage.setItem('com.TriviaWithFriends', token);
+         $window.localStorage.setItem('com.TriviaWithFriends.username', $scope.signupData.username);
          $scope.closeLogin();
       })
   };

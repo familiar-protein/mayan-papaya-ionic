@@ -17,7 +17,7 @@ app.factory('UserFactory', ['$http', '$location', '$window', function($http, $lo
   };
 
   obj.signup = function (user) {
-    return $http.post('/api/users/signup', {
+    return $http.post('http://localhost:3000/api/users/signup', {
       username: user.username,
       password: user.password
     })
