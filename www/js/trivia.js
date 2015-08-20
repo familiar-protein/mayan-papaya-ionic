@@ -1,4 +1,4 @@
-var app = angular.module('Trivia', []);
+var app = angular.module('Trivia', ['Profile']);
 var url = 'http://localhost:3000';
 
 //factory to get and hold question data
@@ -15,21 +15,21 @@ app.factory('Questions', ['$http', function($http) {
     });
   };
 
-  // obj.updateUser = function(user){
-  //   return $http.put('/api/users', {
-  //     username: user.username,
-  //     score: user.score,
-  //     correct: user.correct,
-  //     correctStreak: user.correctStreak,
-  //     answered: user.answered
-  //   });
-  // };
+  obj.updateUser = function(user){
+    return $http.put('http://localhost:3000/api/users', {
+      username: user.username,
+      score: user.score,
+      correct: user.correct,
+      correctStreak: user.correctStreak,
+      answered: user.answered
+    });
+  };
 
   return obj;
 }]);
 
 
-app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval', '$location', function($scope, $http, Questions, $interval, $location) {
+app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval', '$location', 'ProfileFactory', function($scope, $http, Questions, $interval, $location, ProfileFactory) {
 
   //sample trivia api response for chai test
   $scope.questions = {
@@ -42,8 +42,8 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
     }
   };
 
-  // $scope.updateUser = Questions.updateUser;
-  // $scope.username = ProfileFactory.getUsername();
+  $scope.updateUser = Questions.updateUser;
+  $scope.username = ProfileFactory.getUsername();
 
   // initialize game data
   $scope.gameDataInit = function() {
@@ -58,22 +58,22 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
 
   //for question navigation
   // $scope.navLoc = Math.floor(Math.random() * 150);
-  $scope.navLoc = 0;
+  $scope.navLoc = Math.floor(Math.random() * 150);
   $scope.questionCount = 0;
   $scope.nextLoc = function() {
     //TODO make more dynamic
-    $scope.navLoc = 0;
+    $scope.navLoc = Math.floor(Math.random() * 150);
     $scope.setCountdown();
     $scope.questionCount++;
     if ($scope.questionCount === 10) {
-    //   $scope.updateUser({
-    //     username: $scope.username,
-    //     score: $scope.score,
-    //     correct: $scope.correct,
-    //     correctStreak: $scope.correctStreak,
-    //     answered: $scope.answered
-
-    //   });
+      $scope.updateUser({
+        username: $scope.username,
+        score: $scope.score,
+        correct: $scope.correct,
+        correctStreak: $scope.correctStreak,
+        answered: $scope.answered
+      });
+      $scope.questionCount = 0;
       $location.path("app/trivia"); // render endgame view
     }
   };
@@ -93,7 +93,8 @@ app.controller('TriviaController', ['$scope', '$http', 'Questions', '$interval',
     var id = question.id;
     var value = question.value;
     var userAns = question.userAnswer;
-    if(answer === question.correct) {
+
+    if(answer === question.answer) {
       $scope.correct++;
       $scope.currentStreak++;
       $scope.score += Math.floor(Math.sqrt(+question.level) * 50 + $scope.counter);

@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['User'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $window, UserFactory) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,6 +11,7 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.signupData = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -35,9 +36,25 @@ angular.module('starter.controllers', [])
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    UserFactory.signin($scope.loginData)
+      .then(function(token) {
+         $window.localStorage.setItem('com.TriviaWithFriends', token);
+         $window.localStorage.setItem('com.TriviaWithFriends.username', $scope.loginData.username);
+         $scope.closeLogin();
+      })
+  };
+
+  $scope.doSignup = function() {
+    console.log('Doing login', $scope.signupData);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    UserFactory.signup($scope.signupData)
+      .then(function(token) {
+         $window.localStorage.setItem('com.TriviaWithFriends', token);
+         $window.localStorage.setItem('com.TriviaWithFriends.username', $scope.signupData.username);
+         $scope.closeLogin();
+      })
   };
 })
 
