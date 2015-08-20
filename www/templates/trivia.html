@@ -1,8 +1,15 @@
 <ion-view view-title="Trivia">
   <ion-content>
-    <h4>Last Game</h4>
-    <p>TODO: add most recent game stats</p>
+    <div class="container">
+      
+      <h4>Last Game</h4>
+      <div>answered: {{user.mostRecentGame.questionsAnswered}}</div>
+      <div>correct: {{user.mostRecentGame.questionsAnsweredCorrect}}</div>
+      <div>XP earned: {{user.mostRecentGame.xpEarned}}</div>
 
+    </div>
+    
     <button class="button button-royal button-block btn-play" ui-sref=".play">Play Trivia</button>
   </ion-content>
 </ion-view>
+  
