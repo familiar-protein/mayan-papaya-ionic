@@ -22,14 +22,35 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
   });
 })
 
+.run(function ($rootScope, $state, UserFactory) {
+  $rootScope.$on('$stateChangeStart', function(event, next) {
+    if (!next.data.publicallyAccessible && UserFactory.isAuth()) {
+      event.preventDefault();
+      $state.go('app.auth');
+    }
+  });
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'AppCtrl',
+    data: { publicallyAccessible: true }
+  })
+
+  .state('app.auth', {
+    url: '/welcome',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/auth.html',
+        controller: 'UserController'
+      }
+    },
+    data: { publicallyAccessible: true }
   })
 
   .state('app.trivia', {
@@ -38,7 +59,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
       'menuContent': {
         templateUrl: 'templates/trivia.html',
       }
-    }
+    },
+    data: { publicallyAccessible: false }
   })
 
       .state('app.trivia.play', {
@@ -48,7 +70,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
             templateUrl: 'templates/trivia.play.html',
             controller: 'TriviaController'
           }
-        }
+        },
+        data: { publicallyAccessible: false }
       })
 
   .state('app.profile', {
@@ -58,7 +81,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
         templateUrl: 'templates/profile.html',
         controller: 'ProfileController'
       }
-    }
+    },
+    data: { publicallyAccessible: false }
   })
 
   .state('app.browse', {
@@ -67,17 +91,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
         'menuContent': {
           templateUrl: 'templates/browse.html'
         }
-      }
+      },
+      data: { publicallyAccessible: false }
     })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
+
+  .state('app.playlists', {
+    url: '/playlists',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/playlists.html',
+        controller: 'PlaylistsCtrl'
       }
-    })
+    },
+    data: { publicallyAccessible: false }
+  })
 
   .state('app.single', {
     url: '/playlists/:playlistId',
@@ -86,7 +113,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'Trivia', 'Profile'])
         templateUrl: 'templates/playlist.html',
         controller: 'PlaylistCtrl'
       }
-    }
+    },
+    data: { publicallyAccessible: false }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');

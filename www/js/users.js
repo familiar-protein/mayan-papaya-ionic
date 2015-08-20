@@ -50,7 +50,7 @@ app.controller('UserController', ['$scope', '$window', '$location', 'UserFactory
       .then(function (token) {
         $window.localStorage.setItem('com.TriviaWithFriends', token);
         $window.localStorage.setItem('com.TriviaWithFriends.username', $scope.user.username);
-       $location.path('/profile');
+       $location.path('/app/trivia');
      })
      .catch(function (error) {
         $scope.fail = true;
@@ -62,7 +62,7 @@ app.controller('UserController', ['$scope', '$window', '$location', 'UserFactory
       .then(function (token) {
         $window.localStorage.setItem('com.TriviaWithFriends', token);
         $window.localStorage.setItem('com.TriviaWithFriends.username', $scope.user.username);
-        $location.path('/profile');
+        $location.path('/app/trivia');
       })
       .catch(function (error) {
         $scope.fail = true;;
