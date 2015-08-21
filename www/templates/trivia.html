@@ -9,13 +9,13 @@
 
     </div>
     
-    <button class="button button-royal button-block btn-play" ui-sref=".play">Create Game</button>
+    <button class="button button-royal button-block btn-play" ui-sref=".play" ng-click="newGame()">Create Game</button>
 
     <label class="item item-input">
-      <input type="text" placeholder="Game Code">
+      <input type="text" placeholder="Game Code" id="formCode">
     </label>
 
-    <button class="button button-royal button-block btn-play" ng-click="">Join Game</button>
+    <button class="button button-royal button-block btn-play" ui-sref=".play" ng-click="joinGame()">Join Game</button>
   </ion-content>
 </ion-view>
   

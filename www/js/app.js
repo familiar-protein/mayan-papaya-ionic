@@ -76,7 +76,7 @@ angular.module('starter', ['ionic', 'Trivia', 'Profile', 'User'])
     views: {
       'menuContent': {
         templateUrl: 'templates/trivia.html',
-        controller: 'ProfileController'
+        controller: 'TriviaController'
       }
     },
     data: { publicallyAccessible: false }
